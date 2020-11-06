@@ -1,12 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
-char s[2024],stack1[2024];
+char s[1024],stack1[1024];
 int top=0;
 int isTerminal(char c){
 	if(c!='N') return 1;
 	return 0;
 } 
-int cmp(char a, char b){
+int cmp1(char a, char b){
 	int flag[6][6]={
 	{1,-1,-1,-1,1,1},
 	{1,1,-1,-1,1,1},
@@ -34,7 +34,7 @@ int cmp(char a, char b){
 }
 int R(int st,char c){
 	int j=st;
-	while(cmp(stack1[j],c)==1){
+	while(cmp1(stack1[j],c)==1){
 		if(isTerminal(stack1[top])==0) j=top-1;
 		else j=top;
 		if(stack1[j]=='i'){
@@ -68,7 +68,7 @@ int main(int argc,char *argv[]){
 	FILE *fp;
 	fp = fopen(argv[1], "rb");
 	while(fgets(s,1024,fp)){
-// 		while(~scanf("%s",s)){
+//		while(~scanf("%s",s)){
 		int j=0;
 		top=0;
 		stack1[top]='#';
@@ -81,18 +81,18 @@ int main(int argc,char *argv[]){
 		for(int i=0;i<=len;i++){
 			if(isTerminal(stack1[top])) j=top;
 			else j=top-1;
-			if(cmp(stack1[j],s[i])==1){
+			if(cmp1(stack1[j],s[i])==1){
 				if(!R(j,s[i])){
 					printf("RE\n");
 					return 0;
 				}
 			}
-			else if(cmp(stack1[j],s[i])==-1){
+			else if(cmp1(stack1[j],s[i])==-1){
 				top++;
 				stack1[top]=s[i];
 				printf("I%c\n",stack1[top]);
 			}
-			else if(cmp(stack1[j],s[i])==0){
+			else if(cmp1(stack1[j],s[i])==0){
 				if(s[i]=='#'){
 					return 0;
 				}
