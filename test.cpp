@@ -74,7 +74,6 @@ int main(int argc,char *argv[]){
 		stack1[top]='#';
 		int len= strlen(s)-2;
 		s[len]='#';
-		s[len+1]='\0';
 		for(int i=0;i<=len;i++){
 			if(isTerminal(stack1[top])) j=top;
 			else j=top-1;
