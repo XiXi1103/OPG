@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 char s[1024],stack1[1024];
+int top;
 int isTerminal(char c){
 	if(c!='N') return 1;
 	return 0;
@@ -32,42 +33,44 @@ int cmp(char a, char b){
 	return flag[i][j];
 }
 int R(int st,char c){
-	int top1=st,j=st;
+	int j=st;
 	while(cmp(stack1[j],c)==1){
-		if(isTerminal(stack1[top1])==0) j=top1-1;
-		else j=top1;
+		if(isTerminal(stack1[top])==0) j=top-1;
+		else j=top;
 		if(stack1[j]=='i'){
 			stack1[j]='N';
 			printf("R\n");
 		}
 		else if((stack1[j]=='+'||stack1[j]=='*')&&stack1[j+1]=='N'&&stack1[j-1]=='N'){
-			top1-=2;
-			stack1[top1]='N'; 
+			top-=2;
+			stack1[top]='N'; 
 			printf("R\n");
 		}
 		else if (stack1[j]==')'&&stack1[j-1]=='N'&&stack1[j-2]=='('){
-			top1-=2;
-			stack1[top1]='N';
+			top-=2;
+			stack1[top]='N';
 			printf("R\n");
 		}
 		else if(stack1[j]=='#') break;
 		
 		else return 0;
 	}
-	stack1[++top1]=c;
+	stack1[++top]=c;
 	if(c!='#')
-	printf("I%c\n",stack1[top1]);
+	printf("I%c\n",stack1[top]);
 	return 1;
 }
 int main(int argc,char *argv[]){
 	FILE *fp;
 	fp = fopen(argv[1], "rb");
 	while(fgets(s,1024,fp)){
-		int top=0,j=0;
+//		scanf("%s",s);
+		int j=0;
+		top=0;
 		stack1[top]='#';
 		int len= strlen(s);
-		s[len-2]='#';
-		s[len-1]='\0';
+		s[len]='#';
+		s[len+1]='\0';
 		for(int i=0;i<=len;i++){
 			if(isTerminal(stack1[top])) j=top;
 			else j=top-1;
@@ -75,8 +78,7 @@ int main(int argc,char *argv[]){
 				if(!R(j,s[i])){
 					printf("RE\n");
 					return 0;
-				} 
-				top++;
+				}
 			}
 			else if(cmp(stack1[j],s[i])==-1){
 				top++;
