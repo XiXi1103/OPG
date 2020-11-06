@@ -1,4 +1,3 @@
-
 #include<bits/stdc++.h>
 using namespace std;
 char s[1024],stack1[1024];
@@ -64,11 +63,11 @@ int main(int argc,char *argv[]){
 	FILE *fp;
 	fp = fopen(argv[1], "rb");
 	while(fgets(s,1024,fp)){
-		int top=0,j;
+		int top=0,j=0;
 		stack1[top]='#';
 		int len= strlen(s);
-		s[len]='#';
-		s[len+1]='\0';
+		s[len-2]='#';
+		s[len-1]='\0';
 		for(int i=0;s[i]!='\0';i++){
 			if(isTerminal(stack1[top])) j=top;
 			else j=top-1;
