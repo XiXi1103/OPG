@@ -68,6 +68,7 @@ int main(int argc,char *argv[]){
 	FILE *fp;
 	fp = fopen(argv[1], "rb");
 	while(fgets(s,1024,fp)){
-		printf("%s",s);
+		printf("%d",sizeof(s));
+		printf("%d",sizeof(stack1));
 }
 } 
