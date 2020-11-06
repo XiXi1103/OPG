@@ -6,7 +6,7 @@ int isTerminal(char c){
 	return 0;
 } 
 int cmp(char a, char b){
-	int flag[6][6]={//+ * i ( ) #
+	int flag[6][6]={
 	{1,-1,-1,-1,1,1},
 	{1,1,-1,-1,1,1},
 	{1,1,2,2,1,1},
@@ -63,7 +63,6 @@ int main(int argc,char *argv[]){
 	FILE *fp;
 	fp = fopen(argv[1], "rb");
 	while(fgets(s,1024,fp)){
-//		scanf("%s",s);
 		int top=0,j;
 		stack1[top]='#';
 		int len= strlen(s);
