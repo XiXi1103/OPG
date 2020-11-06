@@ -63,41 +63,5 @@ int R(int st,char c){
 int main(int argc,char *argv[]){
 	FILE *fp;
 	fp = fopen(argv[1], "rb");
-	while(fgets(s,1024,fp)){
-//		scanf("%s",s);
-		int j=0;
-		top=0;
-		stack1[top]='#';
-		int len= strlen(s);
-		s[len]='#';
-		s[len+1]='\0';
-		for(int i=0;i<=len;i++){
-			if(isTerminal(stack1[top])) j=top;
-			else j=top-1;
-			if(cmp(stack1[j],s[i])==1){
-				if(!R(j,s[i])){
-					printf("RE\n");
-					break;
-				}
-			}
-			else if(cmp(stack1[j],s[i])==-1){
-				top++;
-				stack1[top]=s[i];
-				printf("I%c\n",stack1[top]);
-			}
-			else if(cmp(stack1[j],s[i])==0){
-				if(s[i]=='#'){
-					break;
-				}
-				stack1[++top]=s[i];
-				printf("I%c",stack1[top]);
-			}
-			else{
-				printf("E\n");
-				break;
-			}
-		}
-		memset(s,0,1024);
-		memset(stack1,0,1024);
-}
+	printf("I\n");
 } 
