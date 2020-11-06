@@ -63,5 +63,8 @@ int R(int st,char c){
 int main(int argc,char *argv[]){
 	FILE *fp;
 	fp = fopen(argv[1], "rb");
-	printf("I\n");
+	while(fgets(s,1024,fp)){
+		printf("r");
+		
+}
 } 
