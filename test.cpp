@@ -77,7 +77,7 @@ int main(int argc,char *argv[]){
 			if(cmp(stack1[j],s[i])==1){
 				if(!R(j,s[i])){
 					printf("RE\n");
-					return 0;
+					break;
 				}
 			}
 			else if(cmp(stack1[j],s[i])==-1){
@@ -87,7 +87,7 @@ int main(int argc,char *argv[]){
 			}
 			else if(cmp(stack1[j],s[i])==0){
 				if(s[i]=='#'){
-					return 0;
+					break;
 				}
 				stack1[++top]=s[i];
 				printf("I%c",stack1[top]);
