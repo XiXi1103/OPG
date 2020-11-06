@@ -68,7 +68,42 @@ int main(int argc,char *argv[]){
 	FILE *fp;
 	fp = fopen(argv[1], "rb");
 	while(fgets(s,1024,fp)){
-		printf("%d",sizeof(s));
-		printf("%d",sizeof(stack1));
+//		while(~scanf("%s",s)){
+		int j=0;
+		top=0;
+		stack1[top]='#';
+		for(int k=0;s[k]!='\0';k++){
+			if(s[k]=='\r'||s[k]=='\n')
+				s[k]='\0';
+		} 
+		int len= strlen(s);
+		s[len]='#';
+		for(int i=0;i<=len;i++){
+			if(isTerminal(stack1[top])) j=top;
+			else j=top-1;
+			if(cmp(stack1[j],s[i])==1){
+				if(!R(j,s[i])){
+					printf("RE\n");
+					return 0;
+				}
+			}
+			else if(cmp(stack1[j],s[i])==-1){
+				top++;
+				stack1[top]=s[i];
+				printf("I%c\n",stack1[top]);
+			}
+			else if(cmp(stack1[j],s[i])==0){
+				if(s[i]=='#'){
+					return 0;
+				}
+				stack1[++top]=s[i];
+				printf("I%c",stack1[top]);
+			}
+			else{
+				printf("E\n");
+				return 0;
+			}
+		}
+		return 0;
 }
 } 
