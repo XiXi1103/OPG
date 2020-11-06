@@ -1,6 +1,6 @@
-#include<stdio.h>
-#include<string.h>
-char s[1024],stack[1024];
+#include<bits/stdc++.h>
+using namespace std;
+char s[1024],stack1[1024];
 int isTerminal(char c){
 	if(c!='N') return 1;
 	return 0;
@@ -33,30 +33,30 @@ int cmp(char a, char b){
 }
 int R(int st,char c){
 	int top1=st,j=st;
-	while(cmp(stack[j],c)==1){
-		if(isTerminal(stack[top1])==0) j=top1-1;
+	while(cmp(stack1[j],c)==1){
+		if(isTerminal(stack1[top1])==0) j=top1-1;
 		else j=top1;
-		if(stack[j]=='i'){
-			stack[j]='N';
+		if(stack1[j]=='i'){
+			stack1[j]='N';
 			printf("R\n");
 		}
-		else if((stack[j]=='+'||stack[j]=='*')&&stack[j+1]=='N'&&stack[j-1]=='N'){
+		else if((stack1[j]=='+'||stack1[j]=='*')&&stack1[j+1]=='N'&&stack1[j-1]=='N'){
 			top1-=2;
-			stack[top1]='N'; 
+			stack1[top1]='N'; 
 			printf("R\n");
 		}
-		else if (stack[j]==')'&&stack[j-1]=='N'&&stack[j-2]=='('){
+		else if (stack1[j]==')'&&stack1[j-1]=='N'&&stack1[j-2]=='('){
 			top1-=2;
-			stack[top1]='N';
+			stack1[top1]='N';
 			printf("R\n");
 		}
-		else if(stack[j]=='#') break;
+		else if(stack1[j]=='#') break;
 		
 		else return 0;
 	}
-	stack[++top1]=c;
+	stack1[++top1]=c;
 	if(c!='#')
-	printf("I%c\n",stack[top1]);
+	printf("I%c\n",stack1[top1]);
 	return 1;
 }
 int main(int argc,char *argv[]){
@@ -65,31 +65,31 @@ int main(int argc,char *argv[]){
 	while(fgets(s,1024,fp)){
 //		scanf("%s",s);
 		int top=0,j;
-		stack[top]='#';
+		stack1[top]='#';
 		int len= strlen(s);
 		s[len]='#';
 		s[len+1]='\0';
 		for(int i=0;s[i]!='\0';i++){
-			if(isTerminal(stack[top])) j=top;
+			if(isTerminal(stack1[top])) j=top;
 			else j=top-1;
-			if(cmp(stack[j],s[i])==1){
+			if(cmp(stack1[j],s[i])==1){
 				if(!R(j,s[i])){
 					printf("RE\n");
 					return 0;
 				} 
 				top++;
 			}
-			else if(cmp(stack[j],s[i])==-1){
+			else if(cmp(stack1[j],s[i])==-1){
 				top++;
-				stack[top]=s[i];
-				printf("I%c\n",stack[top]);
+				stack1[top]=s[i];
+				printf("I%c\n",stack1[top]);
 			}
-			else if(cmp(stack[j],s[i])==0){
+			else if(cmp(stack1[j],s[i])==0){
 				if(s[i]=='#'){
 					return 0;
 				}
-				stack[++top]=s[i];
-				printf("I%c",stack[top]);
+				stack1[++top]=s[i];
+				printf("I%c",stack1[top]);
 			}
 			else{
 				printf("E\n");
