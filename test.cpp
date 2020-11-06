@@ -68,7 +68,7 @@ int main(int argc,char *argv[]){
 		int len= strlen(s);
 		s[len-2]='#';
 		s[len-1]='\0';
-		for(int i=0;s[i]!='\0';i++){
+		for(int i=0;i<=len;i++){
 			if(isTerminal(stack1[top])) j=top;
 			else j=top-1;
 			if(cmp(stack1[j],s[i])==1){
@@ -95,5 +95,7 @@ int main(int argc,char *argv[]){
 				break;
 			}
 		}
+		memset(s,0,1024);
+		memset(stack1,0,1024);
 }
 } 
