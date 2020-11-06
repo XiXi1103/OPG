@@ -67,8 +67,8 @@ int R(int st,char c){
 int main(int argc,char *argv[]){
 	FILE *fp;
 	fp = fopen(argv[1], "rb");
-//	while(fgets(s,1024,fp)){
-		while(~scanf("%s",s)){
+	while(fgets(s,1024,fp)){
+// 		while(~scanf("%s",s)){
 		int j=0;
 		top=0;
 		stack1[top]='#';
