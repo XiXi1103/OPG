@@ -89,11 +89,12 @@ int main(int argc,char *argv[]){
 			else j=top-1;
 			int f=cmp1(stack1[j],s[i]);
 			if(f==1){
-				if(R(j,s[i])==0){
+				int p= R(j,s[i]);
+				if(p==0){
 					printf("RE\n");
 					return 0;
 				}
-				if(R(j,s[i])==2){
+				if(p==2){
 					printf("E\n");
 					return 0;
 				}
