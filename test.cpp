@@ -7,15 +7,15 @@ int isTerminal(char c){
 	return 0;
 } 
 int cmp1(char a, char b){
-	int flag[6][6]={
-	{1,-1,-1,-1,1,1},
-	{1,1,-1,-1,1,1},
-	{1,1,2,2,1,1},
-	{-1,-1,-1,-1,0,2},
-	{1,1,2,2,1,1},
-	{-1,-1,-1,-1,2,0}
+	int flag[6][7]={
+	{1,-1,-1,-1,1,1,-2},
+	{1,1,-1,-1,1,1,-2},
+	{1,1,2,2,1,1,-2},
+	{-1,-1,-1,-1,0,2,-2},
+	{1,1,2,2,1,1,-2},
+	{-1,-1,-1,-1,2,0,-2},
 	};
-	int i,j;
+	int i=0,j=6;
 	if(a=='+') i=0;
 	if(a=='*') i=1;
 	if(a=='i') i=2;
@@ -35,8 +35,7 @@ int cmp1(char a, char b){
 int R(int st,char c){
 	int j=st;
 	while(cmp1(stack1[j],c)==1){
-		if(isTerminal(stack1[top])==0) j=top-1;
-		else j=top;
+		
 		if(stack1[j]=='i'){
 			stack1[j]='N';
 			printf("R\n");
@@ -58,17 +57,24 @@ int R(int st,char c){
 		else if(stack1[j]=='#') break;
 		
 		else return 0;
+		if(isTerminal(stack1[top])==0) j=top-1;
+		else j=top;
 	}
-	stack1[++top]=c;
-	if(c!='#')
-	printf("I%c\n",stack1[top]);
+	if(cmp1(stack1[j],c)==2){
+		return 2;
+	}
+	if(c!='#'){
+		stack1[++top]=c;
+		printf("I%c\n",stack1[top]);
+	}
+	
 	return 1;
 }
 int main(int argc,char *argv[]){
 	FILE *fp;
 	fp = fopen(argv[1], "rb");
 	while(fgets(s,1024,fp)){
-//		while(~scanf("%s",s)){
+// 		while(~scanf("%s",s)){
 		int j=0;
 		top=0;
 		stack1[top]='#';
@@ -81,18 +87,23 @@ int main(int argc,char *argv[]){
 		for(int i=0;i<=len;i++){
 			if(isTerminal(stack1[top])) j=top;
 			else j=top-1;
-			if(cmp1(stack1[j],s[i])==1){
-				if(!R(j,s[i])){
+			int f=cmp1(stack1[j],s[i]);
+			if(f==1){
+				if(R(j,s[i])==0){
 					printf("RE\n");
 					return 0;
 				}
+				if(R(j,s[i])==2){
+					printf("E\n");
+					return 0;
+				}
 			}
-			else if(cmp1(stack1[j],s[i])==-1){
+			else if(f==-1){
 				top++;
 				stack1[top]=s[i];
 				printf("I%c\n",stack1[top]);
 			}
-			else if(cmp1(stack1[j],s[i])==0){
+			else if(f==0){
 				if(s[i]=='#'){
 					return 0;
 				}
